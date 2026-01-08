@@ -288,11 +288,8 @@ with tab3:
     WEATHER_PATH  = "./2_team/timedata.csv"
 
     # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
-    
-    font_path = "./2_team/font/malgun.ttf"
-    font_prop = fm.FontProperties(fname=font_path)
 
-    plt.rcParams["font.family"] = font_prop.get_name()
+    plt.rcParams["font.family"] = "DejaVu Sans"
     plt.rcParams["axes.unicode_minus"] = False
 
     # 시간대 라벨("0시~2시")에서 시작 시각(0)을 추출해 정렬에 활용
