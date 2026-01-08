@@ -289,7 +289,10 @@ with tab3:
 
     # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
     
-    plt.rcParams["font.family"] = "Malgun Gothic"
+    font_path = "./malgun.ttf"
+    font_prop = fm.FontProperties(fname=font_path)
+
+    plt.rcParams["font.family"] = font_prop.get_name()
     plt.rcParams["axes.unicode_minus"] = False
 
     # 시간대 라벨("0시~2시")에서 시작 시각(0)을 추출해 정렬에 활용
