@@ -291,7 +291,7 @@ with tab3:
     # 1) 폰트 설정 (Streamlit Cloud 호환)
     import os
     
-    # 폰트 파일 경로들 (여러 경로 시도 - Streamlit Cloud 환경 고려)
+    # 폰트 파일 경로들 (여러 경로 시도)
     font_paths = [
         "./2_team/font/malgun.ttf",
         "./font/malgun.ttf",
@@ -303,9 +303,12 @@ with tab3:
     
     font_path = None
     for path in font_paths:
-        if os.path.exists(path):
-            font_path = path
-            break
+        try:
+            if os.path.exists(path):
+                font_path = path
+                break
+        except:
+            continue
     
     # 폰트 설정 적용
     if font_path:
@@ -313,8 +316,7 @@ with tab3:
             font_prop = fm.FontProperties(fname=font_path)
             rc('font', family=font_prop.get_name())
             plt.rcParams['font.family'] = font_prop.get_name()
-        except Exception as e:
-            # 폰트 로드 실패 시 시스템 폰트 시도
+        except Exception:
             font_path = None
     
     # 폰트 파일이 없거나 로드 실패 시 시스템 폰트 사용
