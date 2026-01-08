@@ -6,3 +6,4 @@ numpy
 plotly
 seaborn
 statsmodels
+matplotlib
