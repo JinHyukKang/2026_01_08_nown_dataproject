@@ -288,12 +288,57 @@ with tab3:
     TIME_ACC_PATH = "./2_team/time_accident.csv"
     WEATHER_PATH  = "./2_team/timedata.csv"
 
-    # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
-
-    # 한글 폰트 설정
-    font_path = './2_team/font/NanumGothic.ttf' # 폰트 파일명
-    font_prop = fm.FontProperties(fname=font_path)
-    rc('font', family=font_prop.get_name())
+    # 1) 폰트 설정 (Streamlit Cloud 호환)
+    import os
+    
+    # 폰트 파일 경로들 (여러 경로 시도 - Streamlit Cloud 환경 고려)
+    font_paths = [
+        "./2_team/font/malgun.ttf",
+        "./font/malgun.ttf",
+        "font/malgun.ttf",
+        "2_team/font/malgun.ttf",
+        os.path.join(os.getcwd(), "2_team", "font", "malgun.ttf"),
+        os.path.join(os.getcwd(), "font", "malgun.ttf")
+    ]
+    
+    font_path = None
+    for path in font_paths:
+        if os.path.exists(path):
+            font_path = path
+            break
+    
+    # 폰트 설정 적용
+    if font_path:
+        try:
+            font_prop = fm.FontProperties(fname=font_path)
+            rc('font', family=font_prop.get_name())
+            plt.rcParams['font.family'] = font_prop.get_name()
+        except Exception as e:
+            # 폰트 로드 실패 시 시스템 폰트 시도
+            font_path = None
+    
+    # 폰트 파일이 없거나 로드 실패 시 시스템 폰트 사용
+    if not font_path:
+        try:
+            # 시스템에 설치된 한글 폰트 찾기
+            available_fonts = [f.name for f in fm.fontManager.ttflist]
+            korean_fonts = [f for f in available_fonts 
+                          if any(kw in f.lower() for kw in ['malgun', 'gulim', 'dotum', 'nanum', 'batang', 'gungsuh'])]
+            
+            if korean_fonts:
+                rc('font', family=korean_fonts[0])
+                plt.rcParams['font.family'] = korean_fonts[0]
+            else:
+                # 한글 폰트가 없으면 기본 폰트 사용
+                rc('font', family='DejaVu Sans')
+                plt.rcParams['font.family'] = 'DejaVu Sans'
+        except Exception:
+            rc('font', family='DejaVu Sans')
+            plt.rcParams['font.family'] = 'DejaVu Sans'
+    
+    # 마이너스 기호 깨짐 방지
+    plt.rcParams['axes.unicode_minus'] = False
+    rc('axes', unicode_minus=False)
 
     # 시간대 라벨("0시~2시")에서 시작 시각(0)을 추출해 정렬에 활용
     def start_hour(label: str) -> int:
