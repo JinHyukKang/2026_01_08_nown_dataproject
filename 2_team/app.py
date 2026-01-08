@@ -291,7 +291,7 @@ with tab3:
     # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
 
     # 한글 폰트 설정
-    font_path = './2_team/font/NanumGothicBold.ttf' # 폰트 파일명
+    font_path = './2_team/font/NanumGothic.ttf' # 폰트 파일명
     font_prop = fm.FontProperties(fname=font_path)
 
 
