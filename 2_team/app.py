@@ -289,7 +289,7 @@ with tab3:
 
     # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
     
-    font_path = "./malgun.ttf"
+    font_path = "./2_team/malgun.ttf"
     font_prop = fm.FontProperties(fname=font_path)
 
     plt.rcParams["font.family"] = font_prop.get_name()
