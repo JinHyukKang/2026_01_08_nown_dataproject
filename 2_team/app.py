@@ -281,6 +281,7 @@ with tab3:
     import pandas as pd
     import numpy as np
     import matplotlib.pyplot as plt
+    from matplotlib import rc
     import re
     from matplotlib import font_manager as fm
 
@@ -289,8 +290,9 @@ with tab3:
 
     # 1) 폰트 설정 (Streamlit에서도 matplotlib 폰트 적용)
 
-    plt.rcParams["font.family"] = "AppleGothic"
-    plt.rcParams["axes.unicode_minus"] = False
+    # 한글 폰트 설정
+    rc('font', family='AppleGothic')  # Ubuntu의 NanumGothic 폰트 사용
+    rc('axes', unicode_minus=False)  # 마이너스 기호 깨짐 방지
 
     # 시간대 라벨("0시~2시")에서 시작 시각(0)을 추출해 정렬에 활용
     def start_hour(label: str) -> int:
